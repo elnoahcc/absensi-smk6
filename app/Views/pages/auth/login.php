@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sistem Absensi | PPLG SMK N 6 SKA</title>
+  <title>Sistem Absensi | SMK N 6 SKA</title>
 
   <!-- Font: Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,7 +19,7 @@
     body {
       font-family: 'Inter', sans-serif;
       margin: 0;
-      background: url('<?=base_url()?>images/background-login.svg') no-repeat center center;
+      background: url('<?=base_url()?>images/background-login1.svg') no-repeat center center fixed;
       background-size: cover;
       min-height: 100vh;
       display: flex;
@@ -33,20 +33,32 @@
       max-width: 1100px;
       align-items: center;
       justify-content: space-between;
-      padding: 40px;
+      padding: 20px;
       min-height: 100vh;
     }
 
-    /* Bagian kiri (logo gabungan SMK + RPL) */
+    /* Bagian kiri */
     .login-left {
       flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      color: white;
+      text-align: center;
     }
 
     .login-left img {
-      width: 300px;
+      width: 260px; /* lebih besar */
+      margin: 20px 0;
+    }
+
+    .login-left h2 {
+      font-size: 1.6rem; /* lebih besar */
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .login-left p {
+      font-size: 1.3rem; /* lebih besar */
+      line-height: 1.6;
+      font-weight: 600;
     }
 
     /* Bagian kanan (form login) */
@@ -60,49 +72,50 @@
     .card {
       width: 100%;
       max-width: 380px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      background: rgba(255, 255, 255, 0.1); /* transparan */
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
       border-radius: 18px;
+      padding: 25px;
       border: 1px solid rgba(255, 255, 255, 0.25);
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
     }
 
     .card-header {
-      border-bottom: none;
-      background: transparent;
       text-align: center;
-      padding: 20px 10px 10px 10px;
+      margin-bottom: 15px;
     }
 
     .card-header h3 {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       font-weight: 700;
-      color: #f2f2f2;
+      color: #fff; /* putih */
     }
 
     .form-control {
       height: 46px;
       font-size: 1rem;
-      border-radius: 12px 0 0 12px;
+      border-radius: 10px 0 0 10px;
     }
 
     .input-group-text {
-      border-radius: 0 12px 12px 0;
+      border-radius: 0 10px 10px 0;
     }
 
     .btn {
-      border-radius: 12px;
+      border-radius: 10px;
       font-weight: 600;
       padding: 12px;
       font-size: 1rem;
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      background: rgba(37, 99, 235, 0.8);
+      backdrop-filter: blur(10px);
       border: none;
       transition: 0.3s;
+      color: #fff;
     }
 
     .btn:hover {
-      background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      background: rgba(29, 78, 216, 0.9);
     }
 
     /* Responsive */
@@ -111,13 +124,9 @@
         flex-direction: column;
         justify-content: center;
         text-align: center;
-        padding: 20px;
       }
       .login-left {
-        margin-bottom: 25px;
-      }
-      .login-left img {
-        width: 200px;
+        margin-bottom: 30px;
       }
     }
   </style>
@@ -126,9 +135,10 @@
 <div class="login-wrapper">
   <!-- Kiri -->
   <div class="login-left">
-   <img src="https://smkn6solo.sch.id/wp-content/uploads/2022/07/SMK-N-6-Surakarta.png" 
-     alt="Logo" class="brand-image" style="height:300px; width:auto;">
-
+    <h2>Sistem Absensi SMK Negeri 6 Surakarta</h2>
+    <img src="https://smkn6solo.sch.id/wp-content/uploads/2022/07/SMK-N-6-Surakarta.png" 
+         alt="Logo" class="brand-image">
+    <p>Visioner Inovatif<br>Kompeten Amanah</p>
   </div>
 
   <!-- Kanan -->
@@ -136,7 +146,7 @@
     <div class="login-box">
       <div class="card">
         <div class="card-header">
-          <h3>Sistem Absensi<br>SMK N 6 Surakarta</h3>
+          <h3>Selamat Datang<br>Silakan Login</h3>
         </div>
         <div class="card-body">
           <?php if(session()->getFlashdata('error')): ?>
@@ -147,7 +157,7 @@
           <form action="<?=base_url()?>login" method="post">
             <?=csrf_field();?>
             <div class="input-group mb-3">
-              <input type="username" class="form-control" placeholder="Masukkan Username" name="username" autocomplete="off">
+              <input type="text" class="form-control" placeholder="Masukkan Username" name="username" autocomplete="off">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-user"></span>
@@ -155,10 +165,10 @@
               </div>
             </div>
             <div class="input-group mb-3">
-              <input type="password" class="form-control" placeholder="Masukkan Password" name="password">
+              <input type="password" class="form-control" id="password" placeholder="Masukkan Password" name="password">
               <div class="input-group-append">
                 <div class="input-group-text">
-                  <span class="fas fa-lock"></span>
+                  <span class="fas fa-eye" id="togglePassword" style="cursor:pointer;"></span>
                 </div>
               </div>
             </div>
@@ -180,5 +190,16 @@
 <script src="<?=base_url()?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="<?=base_url()?>assets/js/adminlte.min.js"></script>
+
+<!-- Script Show/Hide Password -->
+<script>
+  const togglePassword = document.querySelector('#togglePassword');
+  const password = document.querySelector('#password');
+  togglePassword.addEventListener('click', function () {
+    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    this.classList.toggle('fa-eye-slash');
+  });
+</script>
 </body>
 </html>
