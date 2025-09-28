@@ -1,9 +1,33 @@
 <?php $this->extend('layout/main_layout'); ?>
 
+
 <?php $this->section('css'); ?>
+    <!-- Import Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="<?=base_url()?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-    <!-- <link rel="stylesheet" href="<?=base_url()?>assets/plugins/datatables/responsive.bootstrap4.css"/> -->
     <link rel="stylesheet" href="<?=base_url()?>assets/plugins/sweetalert2/sweetalert2.min.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif !important;
+            font-size: 0.875rem; /* lebih kecil (14px) */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Inter', sans-serif !important;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        h1 { font-size: 1.5rem; } /* 24px */
+        h2 { font-size: 1.25rem; } /* 20px */
+        h3 { font-size: 1.125rem; } /* 18px */
+        h4 { font-size: 1rem; }    /* 16px */
+        h5 { font-size: 0.95rem; } /* 15.2px */
+        h6 { font-size: 0.875rem; }/* 14px */
+        .table, .form-control, .btn, p, span, label {
+            font-size: 0.85rem !important; /* samain biar rapi */
+        }
+    </style>
 <?php $this->endSection(); ?>
 
 <?php $this->section('action-button'); ?>
@@ -16,7 +40,7 @@
             <div class="card">
                 <div class="card-body row">
                     <div class="col-6">
-                        <h5>Status Kehadiran Hari Ini</h5>
+                        <h6>Status Kehadiran Hari Ini</h6>
                         <?php if(!$attendancecount) { ?>
                             <h4 class="text-bold text-danger">Tidak Hadir</h4>
                         <?php } else { ?>
@@ -33,15 +57,15 @@
             <div class="card">
                 <div class="card-body row">
                     <div class="col-lg-4 col-6 ">
-                        <h5>Total Kehadiran</h5>
+                        <h6>Total Kehadiran</h6>
                         <h4 class="text-bold"><?php if($attendancecount) { echo esc($attendancecount['count_hadir']); } else { echo '0';}?></h4>
                     </div>
                     <div class="col-lg-4 col-6">
-                        <h5>Total Hadir Online</h5>
+                        <h6>Total Hadir Online</h6>
                         <h4 class="text-bold"><?php if($attendancecount) { echo esc($attendancecount['count_online']); } else { echo '0';}?></h4>
                     </div>
                     <div class="col-lg-4 col-6">
-                        <h5>Total Izin</h5>
+                        <h6>Total Izin</h6>
                         <h4 class="text-bold"><?php if($attendancecount) { echo esc($attendancecount['count_ijin']); } else { echo '0';}?></h4>
                     </div>
                 </div>

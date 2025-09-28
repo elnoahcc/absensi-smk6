@@ -32,9 +32,9 @@
         <div class="col-lg-6 col-12 mb-2 order-lg-3 order-1">
             <div class="card h-100">
                 <div class="card-body d-flex align-items-center justify-content-start px-5">
-                    <img src="<?=base_url()?>enumatech.png" class="img-md">
+                    <img src="<?=base_url()?>images/logo-smkn6.svg" class="img-md">
                     <div class="ml-3">
-                        <p class="p-0 m-0 h3 font-weight-bold">Enuma Technology</p>
+                        <p class="p-0 m-0 h3 font-weight-bold">SMK Negeri 6 Surakarta</p>
                         <p class="p-0 m-0">Sistem Aplikasi Manajemen Absensi</p>
                     </div>
                 </div>

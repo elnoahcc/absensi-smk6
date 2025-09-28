@@ -3,14 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?= $title ?> | Absensi Enuma Technology</title>
+  <title><?= $title ?> | Absensi SMK Negeri 6 Surakarta</title>
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <link rel="stylesheet" href="<?=base_url()?>assets/plugins/fontawesome-free/css/all.min.css">
   <link rel="stylesheet" href="<?=base_url()?>assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <?= $this->renderSection('css'); ?>
   <link rel="stylesheet" href="<?=base_url()?>assets/css/adminlte.min.css">
-  <link rel="icon" type="image/x-icon" href="<?=base_url()?>enumatech.png">
+  <link rel="icon" type="image/png" href="https://smkn6solo.sch.id/wp-content/uploads/2022/07/SMK-N-6-Surakarta.png">
+
   <style>
     .content-wrapper {
      background-image: url('<?=base_url()?>images/menu-background2.jpg');
@@ -64,8 +65,10 @@
   <aside class="main-sidebar sidebar-light-lightblue elevation-4">
     <!-- Brand Logo -->
     <a href="<?=base_url()?>" class="brand-link bg-dark">
-      <img src="<?=base_url()?>enumatech.png" alt="" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Enuma Technology</span>
+    <img src="https://smkn6solo.sch.id/wp-content/uploads/2022/07/SMK-N-6-Surakarta.png" 
+     alt="Logo" class="brand-image" style="height:45px; width:auto;">
+
+      <span class="brand-text font-weight-light">SMK N 6 Surakarta </span>
     </a>
 
     <!-- Sidebar -->
@@ -154,7 +157,7 @@
   </div>
   <!-- /.content-wrapper -->
   <footer class="main-footer">
-    <strong>Copyright &copy; <?=date('Y')?> <a href="https://enumatechnology.com">Enuma Technology</a>.</strong>
+    <strong>Copyright &copy; <?=date('Y')?> <a href="https://smkn6solo.sch.id/">SMK Negeri 6 Surakarta</a>.</strong>
     All rights reserved.
   </footer>
 

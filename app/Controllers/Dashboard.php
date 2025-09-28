@@ -60,7 +60,7 @@ class Dashboard extends BaseController
                         COUNT(CASE WHEN status = 'Ijin' THEN 1 END) AS ijin_count, 
                         COALESCE(MAX(CASE WHEN DATE(created_at) = CURDATE() THEN status END),'Tidak Hadir') AS status_today")
                 ->where('user_id', $id)
-                ->groupBy('user_id')
+                // ->groupBy('user_id')
                 ->first();
 
             return view('pages/dashboard_user',$data);
