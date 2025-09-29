@@ -19,7 +19,7 @@
     body {
       font-family: 'Inter', sans-serif;
       margin: 0;
-      background: url('<?=base_url()?>images/background-login1.svg') no-repeat center center fixed;
+      background: url('<?=base_url()?>images/background-smkn6-wide.svg') no-repeat center center fixed;
       background-size: cover;
       min-height: 100vh;
       display: flex;
@@ -69,17 +69,19 @@
       align-items: center;
     }
 
-    .card {
-      width: 100%;
-      max-width: 380px;
-      background: rgba(255, 255, 255, 0.1); /* transparan */
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-radius: 18px;
-      padding: 25px;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
-    }
+.card {
+  width: 100%;
+  max-width: 380px;
+  background: rgba(255, 255, 255, 0.3); /* putih lebih tipis */
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 18px;
+  padding: 25px;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+
 
     .card-header {
       text-align: center;
@@ -135,7 +137,7 @@
 <div class="login-wrapper">
   <!-- Kiri -->
   <div class="login-left">
-    <h2>Sistem Absensi SMK Negeri 6 Surakarta</h2>
+    <h2>Sistem Absensi<br>SMK Negeri 6 Surakarta</h2>
     <img src="https://smkn6solo.sch.id/wp-content/uploads/2022/07/SMK-N-6-Surakarta.png" 
          alt="Logo" class="brand-image">
     <p>Visioner Inovatif<br>Kompeten Amanah</p>

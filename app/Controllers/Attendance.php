@@ -423,6 +423,7 @@ class Attendance extends BaseController
                 ->findAll();
         }
         $output = array();
+        // echo($attendance);
         foreach($attendance as $attendance){
             $data['tanggal'] = date('Y-m-d',strtotime($attendance['created_at']));
             $data['status'] = $attendance['status'];
@@ -431,12 +432,12 @@ class Attendance extends BaseController
             if ($attendance['terlambat'] == '1') {
                 $keterangan[] = "Terlambat";
             }
-            if ($attendance['pulcep'] == '1') {
-                $keterangan[] = "Pulang Cepat";
-            }
-            if ($attendance['lembur'] == '1') {
-                $keterangan[] = "Lembur";
-            }
+            // if ($attendance['pulcep'] == '1') {
+            //     $keterangan[] = "Pulang Cepat";
+            // }
+            // if ($attendance['lembur'] == '1') {
+            //     $keterangan[] = "Lembur";
+            // }
 
             $data['keterangan'] = !empty($keterangan) ? implode(", ", $keterangan) : "-";
             $data['id'] = $attendance['id'];
