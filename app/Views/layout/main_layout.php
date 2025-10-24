@@ -129,7 +129,7 @@
             <a href="<?=base_url()?>category" class="nav-link <?php if($uri->getSegment(1) == 'category') { echo "active"; } ?>">
               <i class="nav-icon fas fa-list"></i>
               <p>
-                Grup
+                Kelas
               </p>
             </a>
           </li>
@@ -139,7 +139,7 @@
               <a href="<?=base_url()?>user" class="nav-link <?php if($uri->getSegment(1) == 'user') { echo "active"; } ?>">
                 <i class="nav-icon fas fa-users"></i>
                 <p>
-                  Anggota
+                  Siswa
                 </p>
               </a>
             </li>

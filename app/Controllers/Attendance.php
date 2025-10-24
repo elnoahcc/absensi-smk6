@@ -116,7 +116,7 @@ class Attendance extends BaseController
         $sheet->setCellValue('B4', ': '.$user['name']);
         $sheet->mergeCells('B4:H4');
 
-        $sheet->setCellValue('A5', 'Grup');
+    $sheet->setCellValue('A5', 'Kelas');
         $sheet->getStyle('A5')->getFont()->setBold(true);
         $sheet->setCellValue('B5', ': '.$user['category_name']);
         $sheet->mergeCells('B5:E5');
@@ -337,10 +337,10 @@ class Attendance extends BaseController
 
         if ($existingAttendance) {
             if ($existingAttendance['status'] == "Ijin") {
-                session()->setFlashdata('error','Ijin Gagal! Anggota sudah ijin');
+                session()->setFlashdata('error','Ijin Gagal! Siswa sudah ijin');
                 return redirect()->back();
             } else {
-                session()->setFlashdata('error','Ijin Gagal! Anggota sudah absen');
+                session()->setFlashdata('error','Ijin Gagal! Siswa sudah absen');
                 return redirect()->back();
             }
         }
@@ -378,7 +378,7 @@ class Attendance extends BaseController
             ->first();
 
         if ($existingAttendance) {
-            if ($existingAttendance['status'] == "Ijin") {
+                if ($existingAttendance['status'] == "Ijin") {
                 if ($this->attendanceModel->where('id',$existingAttendance['id'])->delete()) {
                     session()->setFlashdata('success','Pembatalan ijin sukses!');
                     return redirect()->back();
@@ -387,7 +387,7 @@ class Attendance extends BaseController
                     return redirect()->back();
                 }
             } else {
-                session()->setFlashdata('error','Pembatalan ijin gagal! Anggota sudah absen');
+                session()->setFlashdata('error','Pembatalan ijin gagal! Siswa sudah absen');
                 return redirect()->back();
             }
         } else {

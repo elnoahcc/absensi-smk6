@@ -77,14 +77,14 @@
             </div>
         </div>
 
-        <!-- Total Grup -->
+    <!-- Total Kelas -->
         <div class="col-lg-3 col-md-6 col-6 mb-3 order-lg-2 order-3">
             <div class="info-box h-100 shadow-sm">
                 <span class="info-box-icon bg-info elevation-1">
                     <i class="fas fa-list"></i>
                 </span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Grup</span>
+                    <span class="info-box-text">Total Kelas</span>
                     <h1><?= esc($categorycount['total']) ?></h1>
                     <small>&nbsp;</small>
                 </div>

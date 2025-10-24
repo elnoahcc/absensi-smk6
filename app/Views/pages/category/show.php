@@ -16,14 +16,14 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-lightblue">
-                    <h4 class="card-title">Detail Grup</h4>
+                    <h4 class="card-title">Detail Kelas</h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6 col-12">
                             <table>
                                 <tr>
-                                    <th style="width:150px">Nama Grup</th>
+                                    <th style="width:150px">Nama Kelas</th>
                                     <td style="width:10px">:</td>
                                     <td><?= esc($category['name'])?></td>
                                 </tr>
@@ -33,7 +33,7 @@
                                     <td><?= esc($category['description'])?></td>
                                 </tr>
                                 <tr>
-                                    <th>Grub Pengawas</th> 
+                                    <th>Wali Kelas</th> 
                                     <td style="width:10px">:</td>
                                     <td><?php if($category['overseer'] == '1'){echo "<span class='badge badge-success'>Ya</span>";} else { echo "<span class='badge badge-secondary'>Tidak</span>";}?></td>
                                 </tr>
@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-md-6 col-12">
                             <div class="d-flex justify-content-between mb-2">
-                                <p class="my-auto text-bold">Pengawas :</p>
+                                <p class="my-auto text-bold">Wali Kelas :</p>
                                 <?php if(session('user_role') == 'admin') {?>
                                     <button class="btn btn-primary btn-sm" onclick="addPengawas()"><i class="fas fa-plus"></i> Tambah</button>
                                 <?php }?>
@@ -88,7 +88,7 @@
                                 <tr>
                                     <td><?=$key + 1?></td>
                                     <td><?=esc($jadwal['day'])?></td>
-                                    <td><?php if($jadwal['no_limit'] == '1'){echo "<span class='text-muted'>Tanpa Batas Waktu</span>";} else { echo "Jam ".date("H:i", strtotime($jadwal['start_time']))." - Jam ".date("H:i", strtotime($jadwal['end_time']));}?><?php if($jadwal['online'] == '1') { echo " (Online)";}?></td>
+                                    <td><?php if($jadwal['no_limit'] == '1'){echo "<span class='text-muted'>Tanpa Batas Waktu</span>";} else { echo "Jam ".date("H:i", strtotime($jadwal['start_time']))." - Jam ".date("H:i", strtotime($jadwal['end_time']));}?></td>
                                     <td>
                                         <button onclick="edit(<?=esc($jadwal['id'])?>)" class="btn btn-sm btn-secondary"><i class="fas fa-edit"></i></button>
                                         <button onclick="deleteModal('<?=esc($jadwal['id'])?>');" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
@@ -104,7 +104,7 @@
         <div class="col-lg-6 col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">Daftar Anggota</h2>
+                    <h2 class="card-title">Daftar Siswa</h2>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -263,12 +263,7 @@
                             <label for="no_limit" class="custom-control-label">Tanpa Batas Waktu</label>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="online" name="online" value="1">
-                            <label for="online" class="custom-control-label">Masuk Online</label>
-                        </div>
-                    </div>
+                    <!-- Masuk Online removed for school mode -->
                 </div>
                 <div class="form-group">
                     <label>Waktu Awal</label>
@@ -305,12 +300,7 @@
                     <h4 id="labelday"></h4>
                 </div>
                 <div class="d-flex justify-content-between">
-                    <div class="form-group">
-                        <div class="custom-control custom-checkbox">
-                            <input class="custom-control-input" type="checkbox" id="online2" name="online" value="1">
-                            <label for="online2" class="custom-control-label">Masuk Online</label>
-                        </div>
-                    </div>
+                    <!-- Masuk Online removed for school mode -->
                     <div class="form-group">
                         <div class="custom-control custom-checkbox">
                             <input class="custom-control-input" type="checkbox" id="no_limit2" onchange="timeform2()" name="no_limit" value="1">
@@ -443,12 +433,7 @@
                         $("#starttime2").val(data.start_time);
                         $("#endtime2").val(data.end_time);
                     }
-                    if (data.online == '1') {
-                        $('#online2').prop('checked', true);
-                    } else {
-                        $('#online2').prop('checked', false);
-    
-                    }
+                    // online flag removed
                     
                     $('#editJadwalModal').modal();
                 })

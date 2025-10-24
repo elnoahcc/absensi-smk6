@@ -108,7 +108,7 @@
                 <td width="170px"><?=date('d-m-Y')?></td>
             </tr>
             <tr>
-                <th>Grup</th>
+                <th>Kelas</th>
                 <td>:</td>
                 <td><?=$user['category_name']?></td>
                 <th>Periode</th>

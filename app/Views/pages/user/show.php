@@ -20,7 +20,7 @@
                         <h4 class="text-bold"><?=esc($user['name'])?></h4>
                     </div>
                     <div class="col-md-12 col-6">
-                        <h5>Grup</h5>
+                        <h5>Kelas</h5>
                         <h5 class="text-bold"><?=esc($user['category_name'])?></h5>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                         <?php if(!$attendancecount) { ?>
                             <h4 class="text-bold text-danger">Tidak Hadir</h4>
                         <?php } else { ?>
-                            <h4 class="text-bold <?php if($attendancecount['status_today']=='Hadir') { echo "text-success";} else if ($attendancecount['status_today']=='Ijin') {echo "text-info";} else if($attendancecount['status_today']=='Hadir (Online)') { echo "text-success";} else {echo "text-danger";}?>"><?=esc($attendancecount['status_today'])?></h4>
+                            <h4 class="text-bold <?php if($attendancecount['status_today']=='Hadir') { echo "text-success";} else if ($attendancecount['status_today']=='Ijin') {echo "text-info";} else {echo "text-danger";}?>"><?=esc($attendancecount['status_today'])?></h4>
                         <?php } ?>
                     </div>
                     <div class="col-6">
@@ -54,10 +54,7 @@
                         <h5>Total Kehadiran</h5>
                         <h4 class="text-bold"><?php if($attendancecount) { echo esc($attendancecount['count_hadir']); } else { echo '0';}?></h4>
                     </div>
-                    <div class="col-lg-4 col-6">
-                        <h5>Total Hadir Online</h5>
-                        <h4 class="text-bold"><?php if($attendancecount) { echo esc($attendancecount['count_online']); } else { echo '0';}?></h4>
-                    </div>
+                    <!-- 'Hadir Online' removed -->
                     <div class="col-lg-4 col-6">
                         <h5>Total Izin</h5>
                         <h4 class="text-bold"><?php if($attendancecount) { echo esc($attendancecount['count_ijin']); } else { echo '0';}?></h4>
@@ -68,7 +65,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-lightblue">
-                    <h2 class="card-title">Kehadiran dan Laporan Anggota</h2>
+                    <h2 class="card-title">Kehadiran dan Laporan Siswa</h2>
                 </div>
                 <div class="card-body">
                     <div class="card card-body">

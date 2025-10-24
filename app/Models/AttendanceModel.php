@@ -12,7 +12,8 @@ class AttendanceModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['user_id', 'status', 'checkin', 'checkout', 'no_limit', 'terlambat', 'pulcep', 'lembur', 'activity', 'description','image'];
+    // Removed 'lembur' and keep only fields used for school attendance
+    protected $allowedFields    = ['user_id', 'status', 'checkin', 'checkout', 'no_limit', 'terlambat', 'pulcep', 'activity', 'description','image'];
 
     protected bool $allowEmptyInserts = false;
     protected bool $updateOnlyChanged = true;

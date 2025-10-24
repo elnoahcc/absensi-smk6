@@ -15,7 +15,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-lightblue">
-                    <h2 class="card-title">Edit Anggota</h2>
+                    <h2 class="card-title">Edit Siswa</h2>
                 </div>
                 <form method="post" action="<?=base_url()?>user/edit/<?=$user['id']?>">
                     <?= csrf_field(); ?>

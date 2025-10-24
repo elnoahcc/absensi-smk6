@@ -22,7 +22,7 @@
                 ></span>
 
                 <div class="info-box-content">
-                <span class="info-box-text">Grup yang di manage</span>
+                <span class="info-box-text">Kelas yang dikelola</span>
                 <h1 class="text-bold">
                     <?=esc($categorycount['total'])?>
                 </h1>

@@ -15,7 +15,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-lightblue">
-                    <h2 class="card-title">Tambah Grup</h2>
+                    <h2 class="card-title">Tambah Kelas</h2>
                 </div>
                 <form method="post" action="<?=base_url()?>category/add">
                     <?= csrf_field(); ?>

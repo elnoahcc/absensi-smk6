@@ -22,8 +22,8 @@ class Category extends BaseController
 
     public function index()
     {
-        $data['title'] = "Daftar Grup";
-        $data['subtitle'] = "Grup";
+    $data['title'] = "Daftar Kelas";
+    $data['subtitle'] = "Kelas";
 
         $id = session('user_id');
 
@@ -109,8 +109,8 @@ class Category extends BaseController
         $data['pengawas'] = $data_pengawas;
         $data['reg_pengawas'] = $pengawas;
 
-        $data['title'] =  'Detail Grup - '.$category['name'];
-        $data['subtitle'] = "Grup";
+    $data['title'] =  'Detail Kelas - '.$category['name'];
+    $data['subtitle'] = "Kelas";
         $data['category'] = $category;
         $data['user'] = $user;
         $data['jadwal'] = $jadwal;
@@ -121,8 +121,8 @@ class Category extends BaseController
 
     public function add()
     {
-        $data['title'] = "Tambah Grup";
-        $data['subtitle'] = "Grup";
+    $data['title'] = "Tambah Kelas";
+    $data['subtitle'] = "Kelas";
 
         $data['pengawas'] = $this->userModel
             ->select('users.name as name, users.id as id')
@@ -143,8 +143,8 @@ class Category extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         }
 
-        $data['title'] = 'Ubah Grup';
-        $data['subtitle'] = 'Grup';
+    $data['title'] = 'Ubah Kelas';
+    $data['subtitle'] = 'Kelas';
 
         $data['pengawas'] = $this->userModel
             ->select('users.name as name, users.id as id')
@@ -202,7 +202,7 @@ class Category extends BaseController
 
         $data['pengawas_id'] = null;
         if($this->categoryModel->insert($data)) {
-            return redirect()->to('category/detail/'.$id)->with('success', 'Grup berhasil ditambahkan.');
+            return redirect()->to('category/detail/'.$id)->with('success', 'Kelas berhasil ditambahkan.');
         } else {
             return redirect()->back()->with('error', 'Gagal Menyimpan Data!');
         }
@@ -260,7 +260,7 @@ class Category extends BaseController
         }
 
         if($this->categoryModel->update($id, $data)) {
-            return redirect()->to('category/detail/'.$id)->with('success', 'Grup berhasil diubah.');
+            return redirect()->to('category/detail/'.$id)->with('success', 'Kelas berhasil diubah.');
         } else {
             return redirect()->back()->with('error', 'Gagal Menyimpan Data!');
         }
@@ -272,9 +272,9 @@ class Category extends BaseController
         $id = $this->request->getPost('id');
         
         if($this->categoryModel->where('id',$id)->delete()) {
-            return redirect()->to('category')->with('success', 'Grup berhasil dihapus.');
+            return redirect()->to('category')->with('success', 'Kelas berhasil dihapus.');
         } else {
-            return redirect()->back()->with('error', 'Gagal Menghapus Grup!');
+            return redirect()->back()->with('error', 'Gagal Menghapus Kelas!');
         }
     }
 

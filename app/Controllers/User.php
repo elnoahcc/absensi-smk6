@@ -23,8 +23,8 @@ class User extends BaseController
 
     public function index()
     {
-        $data['title'] = "Daftar Anggota";
-        $data['subtitle'] = "Anggota";
+    $data['title'] = "Daftar Siswa";
+    $data['subtitle'] = "Siswa";
 
         $data['user'] = $this->userModel
             ->join('categories', 'categories.id = users.category_id', 'left')
@@ -52,32 +52,31 @@ class User extends BaseController
             }
         }
 
-        $data['title'] = "Detail Anggota";
-        $data['subtitle'] = "Grup - Detail Anggota";
+    $data['title'] = "Detail Siswa";
+    $data['subtitle'] = "Kelas - Detail Siswa";
 
         $data['user'] = $user;
         $data['attendance'] = $this->attendanceModel
             ->where('user_id', $id)
             ->findAll();
 
-        $data['attendancecount'] = $this->attendanceModel
-            ->select("user_id,
-                    COUNT(CASE WHEN status = 'Hadir' THEN 1 END) AS count_hadir, 
-                    COUNT(CASE WHEN status = 'Ijin' THEN 1 END) AS count_ijin, 
-                    COUNT(CASE WHEN status = 'Hadir (Online)' THEN 1 END) AS count_online, 
-                    COALESCE(MAX(CASE WHEN DATE(created_at) = CURDATE() THEN status END),'Tidak Hadir') AS status_today")
-            ->where('user_id', $id)
-            ->groupBy('user_id')
-            ->orderBy('user_id')
-            ->first();
+    $data['attendancecount'] = $this->attendanceModel
+        ->select("user_id,
+            COUNT(CASE WHEN status = 'Hadir' THEN 1 END) AS count_hadir, 
+            COUNT(CASE WHEN status = 'Ijin' THEN 1 END) AS count_ijin, 
+            COALESCE(MAX(CASE WHEN DATE(created_at) = CURDATE() THEN status END),'Tidak Hadir') AS status_today")
+        ->where('user_id', $id)
+        ->groupBy('user_id')
+        ->orderBy('user_id')
+        ->first();
 
         return view('pages/user/show',$data);
     }
 
     public function add()
     {
-        $data['title'] = "Tambah Anggota";
-        $data['subtitle'] = "Anggota";
+    $data['title'] = "Tambah Siswa";
+    $data['subtitle'] = "Siswa";
 
         $data['category'] = $this->categoryModel
             ->where('id !=','1')
@@ -89,8 +88,8 @@ class User extends BaseController
 
     public function edit($id)
     {
-        $data['title'] = "Edit Anggota";
-        $data['subtitle'] = "Anggota";
+    $data['title'] = "Edit Siswa";
+    $data['subtitle'] = "Siswa";
 
         $data['category'] = $this->categoryModel
             ->where('id !=','1')

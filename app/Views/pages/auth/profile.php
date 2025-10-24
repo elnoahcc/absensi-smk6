@@ -16,7 +16,7 @@
                 <div class="card-body p-4">
                     <h6 class="text-bold">Nama :</h6>
                     <h6><?=esc($user['name'])?></h6>
-                    <h6 class="text-bold mt-4">Grup :</h6>
+                    <h6 class="text-bold mt-4">Kelas :</h6>
                     <h6><?=esc($user['category_name'])?></h6>
                     <h6 class="text-bold mt-4">username :</h6>
                     <h6><?=esc($user['username'])?></h6>

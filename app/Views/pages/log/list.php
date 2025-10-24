@@ -44,7 +44,7 @@
                         <?php if(!$attendancecount) { ?>
                             <h4 class="text-bold text-danger">Tidak Hadir</h4>
                         <?php } else { ?>
-                            <h4 class="text-bold <?php if($attendancecount['status_today']=='Hadir') { echo "text-success";} else if ($attendancecount['status_today']=='Ijin') {echo "text-info";} else if($attendancecount['status_today']=='Hadir (Online)') { echo "text-success";} else {echo "text-danger";}?>"><?=esc($attendancecount['status_today'])?></h4>
+                            <h4 class="text-bold <?php if($attendancecount['status_today']=='Hadir') { echo "text-success";} else if ($attendancecount['status_today']=='Ijin') {echo "text-info";} else {echo "text-danger";}?>"><?=esc($attendancecount['status_today'])?></h4>
                         <?php } ?>
                     </div>
                     <div class="col-6">
@@ -60,10 +60,7 @@
                         <h6>Total Kehadiran</h6>
                         <h4 class="text-bold"><?php if($attendancecount) { echo esc($attendancecount['count_hadir']); } else { echo '0';}?></h4>
                     </div>
-                    <div class="col-lg-4 col-6">
-                        <h6>Total Hadir Online</h6>
-                        <h4 class="text-bold"><?php if($attendancecount) { echo esc($attendancecount['count_online']); } else { echo '0';}?></h4>
-                    </div>
+                    <!-- 'Hadir Online' removed -->
                     <div class="col-lg-4 col-6">
                         <h6>Total Izin</h6>
                         <h4 class="text-bold"><?php if($attendancecount) { echo esc($attendancecount['count_ijin']); } else { echo '0';}?></h4>
@@ -74,7 +71,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-lightblue">
-                    <h2 class="card-title">Kehadiran dan Laporan Anggota</h2>
+                    <h2 class="card-title">Kehadiran dan Laporan Siswa</h2>
                 </div>
                 <div class="card-body">
                     <div class="card card-body">
@@ -286,9 +283,6 @@
     <script src="<?=base_url()?>assets/plugins/sweetalert2/sweetalert2.min.js"></script>
     <script src="<?=base_url()?>assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <script>
-        var absenonline;
-        var preventabsenimages;
-        var thereisimage;
         $(function () {
             bsCustomFileInput.init();
         });
@@ -378,50 +372,16 @@
 
         function logSubmit()
         {
-            activity = document.getElementById("activity_text");
-            upload = document.getElementById("customFile");
-            
-            validimage = ['image/gif', 'image/jpeg', 'image/png'];
-
+            var activity = document.getElementById("activity_text");
             if (activity.value == "") {
                 if(!activity.classList.contains('is-invalid')) {
                     activity.classList.add('is-invalid');
                 }
                 $('#err-activity').html("Aktivitas belum di isi");
-            } else {
-                if(activity.classList.contains('is-invalid')) {
-                    activity.classList.remove('is-invalid');
-                }
+                return;
             }
-
-            if (upload.files.length == 0 && absenonline == true && preventabsenimages == true) {
-                if(!upload.classList.contains('is-invalid')) {
-                    upload.classList.add('is-invalid');
-                }
-                $('#err-upload').html("File upload belum di pilih");
-            } else if(upload.files.length != 0 && absenonline == true && preventabsenimages == true) {
-                file = upload.files[0];
-                fileType = file['type'];
-                if (!validimage.includes(fileType)) {
-                    if(!upload.classList.contains('is-invalid')) {
-                        upload.classList.add('is-invalid');
-                    }
-                    $('#err-upload').html("File yang dipilih bukan image");
-                } else {
-                    if(upload.classList.contains('is-invalid')) {
-                        upload.classList.remove('is-invalid');
-                    }
-                }
-            }
-            if (absenonline == false) {
-                if(activity.value != "") {
-                    document.getElementById('form-log').submit();
-                }
-            } else {
-                if(activity.value != "" && upload.files.length != 0 && validimage.includes(fileType)) {
-                    document.getElementById('form-log').submit();
-                }
-            }
+            // Submit form (no online check-in required)
+            document.getElementById('form-log').submit();
         }
 
 
@@ -434,37 +394,16 @@
                 dataType: "json",
                 success: function(response) {
                     if(response.status == 'success') {
-                        absenonline = false;
                         $('#error_log').hide();
                         $('#form_log').show();
                         $('#ss_log').hide();
                         $('#activity_text').val(response.activity);
                         $('#description_text').html(response.description);
-                        $('#image_ss').show();
-                        $('#btn-submit').show();
-                        $('#overlaylog').hide();
-                    } else if(response.status == 'online') {
-                        absenonline = true;
-                        $('#error_log').hide();
-                        $('#form_log').show();
-                        $('#ss_log').show();
-                        $('#activity_text').val(response.activity);
-                        $('#description_text').html(response.description);
-                        if(response.image != "") {
-                            preventabsenimages = false;
-                            thereisimage = true;
+                        if(response.image != '') {
                             $("#image_ss").attr("src","<?=base_url()?>images/data/"+response.user_id+"/"+response.image);
                             $('#image_ss').show();
                         } else {
-                            preventabsenimages = true;
-                            thereisimage = false;
                             $('#image_ss').hide();
-                        }
-                        if(response.message != "") {
-                            $('#error_msg').html(response.message);
-                            $('#error_log').show();
-                        } else {
-                            $('#error_log').hide();
                         }
                         $('#btn-submit').show();
                         $('#overlaylog').hide();
