@@ -71,7 +71,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-lightblue">
-                    <h2 class="card-title">Kehadiran dan Laporan Siswa</h2>
+                    <h3 class="card-title text-white ">Kehadiran dan Laporan Siswa</h3>
                 </div>
                 <div class="card-body">
                     <div class="card card-body">

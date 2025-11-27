@@ -1,0 +1,28 @@
+{
+  "name": "absensi-smk6",
+  "version": "1.0.0",
+  "description": "Aplikasi ini adalah hasil kolaborasi antara Enuma Technology dengan SMK Negeri 6 Surakarta dalam rangka mendukung digitalisasi absensi sekolah.",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+  "dev": "vite",
+  "build": "vite build"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zizizi34/absensi-smk6.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zizizi34/absensi-smk6/issues"
+  },
+  "homepage": "https://github.com/zizizi34/absensi-smk6#readme",
+  "devDependencies": {
+    "laravel-vite-plugin": "^2.0.1",
+    "vite": "^7.2.4"
+  }
+}

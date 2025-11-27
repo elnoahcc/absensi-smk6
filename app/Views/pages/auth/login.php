@@ -14,194 +14,270 @@
   <link rel="stylesheet" href="<?=base_url()?>assets/css/adminlte.min.css">
   <link rel="icon" type="image/x-icon" href="<?=base_url()?>images/logo-smkn6.svg">
 
-  <!-- Custom CSS -->
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
-      margin: 0;
-      background: url('<?=base_url()?>images/background-smkn6-wide.svg') no-repeat center center fixed;
-      background-size: cover;
+      background: #f5f5f5;
       min-height: 100vh;
       display: flex;
+      align-items: center;
       justify-content: center;
-      align-items: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .login-wrapper {
-      display: flex;
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      max-width: 1100px;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px;
-      min-height: 100vh;
+      height: 100%;
+      background-image: url('<?=base_url()?>images/background-smkn6-wide.svg');
+      background-size: auto 100%;
+      background-repeat: repeat-x;
+      opacity: 0.1;
+      z-index: 0;
+      animation: scrollBackground 60s linear infinite;
     }
 
-    /* Bagian kiri */
+    @keyframes scrollBackground {
+      0% {
+        background-position: 0 0;
+      }
+      100% {
+        background-position: -100vw 0;
+      }
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-card {
+      background: white;
+      border-radius: 2px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+      overflow: hidden;
+      display: flex;
+    }
+
     .login-left {
       flex: 1;
+      background: #0052cc;
       color: white;
-      text-align: center;
+      padding: 60px 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
-    .login-left img {
-      width: 260px; /* lebih besar */
-      margin: 20px 0;
+    .logo-section {
+      margin-bottom: 40px;
     }
 
-    .login-left h2 {
-      font-size: 1.6rem; /* lebih besar */
-      font-weight: 700;
+    .logo-section img {
+      width: 80px;
       margin-bottom: 20px;
     }
 
-    .login-left p {
-      font-size: 1.3rem; /* lebih besar */
-      line-height: 1.6;
+    .logo-section h1 {
+      font-size: 24px;
       font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 10px;
     }
 
-    /* Bagian kanan (form login) */
+    .logo-section p {
+      font-size: 14px;
+      opacity: 0.9;
+      font-weight: 500;
+    }
+
     .login-right {
       flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      padding: 60px 50px;
     }
 
-.card {
-  width: 100%;
-  max-width: 380px;
-  background: rgba(255, 255, 255, 0.3); /* putih lebih tipis */
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-radius: 18px;
-  padding: 25px;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-}
-
-
-
-    .card-header {
-      text-align: center;
-      margin-bottom: 15px;
+    .form-header {
+      margin-bottom: 35px;
     }
 
-    .card-header h3 {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #fff; /* putih */
+    .form-header h2 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #172b4d;
+      margin-bottom: 8px;
+    }
+
+    .form-header p {
+      font-size: 14px;
+      color: #5e6c84;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #172b4d;
+      margin-bottom: 6px;
+    }
+
+    .input-wrapper {
+      position: relative;
     }
 
     .form-control {
-      height: 46px;
-      font-size: 1rem;
-      border-radius: 10px 0 0 10px;
+      width: 100%;
+      height: 40px;
+      padding: 8px 12px;
+      font-size: 14px;
+      border: 2px solid #dfe1e6;
+      border-radius: 3px;
+      transition: border-color 0.15s;
+      font-family: 'Inter', sans-serif;
     }
 
-    .input-group-text {
-      border-radius: 0 10px 10px 0;
+    .form-control:focus {
+      outline: none;
+      border-color: #0052cc;
     }
 
-    .btn {
-      border-radius: 10px;
-      font-weight: 600;
-      padding: 12px;
-      font-size: 1rem;
-      background: rgba(37, 99, 235, 0.8);
-      backdrop-filter: blur(10px);
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #5e6c84;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .toggle-password:hover {
+      color: #172b4d;
+    }
+
+    .btn-login {
+      width: 100%;
+      height: 40px;
+      background: #0052cc;
+      color: white;
       border: none;
-      transition: 0.3s;
-      color: #fff;
+      border-radius: 3px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-top: 10px;
     }
 
-    .btn:hover {
-      background: rgba(29, 78, 216, 0.9);
+    .btn-login:hover {
+      background: #0747a6;
     }
 
-    /* Responsive */
+    .error-message {
+      background: #ffebe6;
+      border-left: 3px solid #de350b;
+      color: #172b4d;
+      padding: 12px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      border-radius: 3px;
+    }
+
     @media (max-width: 768px) {
-      .login-wrapper {
+      .login-card {
         flex-direction: column;
-        justify-content: center;
-        text-align: center;
       }
-      .login-left {
-        margin-bottom: 30px;
+
+      .login-left,
+      .login-right {
+        padding: 40px 30px;
       }
     }
   </style>
 </head>
 <body>
-<div class="login-wrapper">
-  <!-- Kiri -->
-  <div class="login-left">
-    <h2>Sistem Absensi<br>SMK Negeri 6 Surakarta</h2>
-    <img src="https://smkn6solo.sch.id/wp-content/uploads/2022/07/SMK-N-6-Surakarta.png" 
-         alt="Logo" class="brand-image">
-    <p>Visioner Inovatif<br>Kompeten Amanah</p>
-  </div>
+  <div class="container">
+    <div class="login-card">
+      <div class="login-left">
+        <div class="logo-section">
+          <img src="https://smkn6solo.sch.id/wp-content/uploads/2022/07/SMK-N-6-Surakarta.png" alt="Logo">
+          <h1>Sistem Absensi<br>SMK Negeri 6 Surakarta</h1>
+          <p>Visioner Inovatif Kompeten Amanah</p>
+        </div>
+      </div>
 
-  <!-- Kanan -->
-  <div class="login-right">
-    <div class="login-box">
-      <div class="card">
-        <div class="card-header">
-          <h3>Selamat Datang<br>Silakan Login</h3>
+      <div class="login-right">
+        <div class="form-header">
+          <h2>Login</h2>
+          <p>Masukkan kredensial Anda untuk melanjutkan</p>
         </div>
-        <div class="card-body">
-          <?php if(session()->getFlashdata('error')): ?>
-            <div class="text-center mt-0 mb-2 text-danger">
-              <?= session()->getFlashdata('error'); ?>
+
+        <?php if(session()->getFlashdata('error')): ?>
+          <div class="error-message">
+            <?= session()->getFlashdata('error'); ?>
+          </div>
+        <?php endif; ?>
+
+        <form action="<?=base_url()?>login" method="post">
+          <?=csrf_field();?>
+          
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Masukkan username" autocomplete="off" required>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-wrapper">
+              <input type="password" class="form-control" id="password" name="password" placeholder="Masukkan password" required>
+              <span class="toggle-password" id="togglePassword">
+                <i class="fas fa-eye"></i>
+              </span>
             </div>
-          <?php endif; ?>
-          <form action="<?=base_url()?>login" method="post">
-            <?=csrf_field();?>
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Masukkan Username" name="username" autocomplete="off">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-user"></span>
-                </div>
-              </div>
-            </div>
-            <div class="input-group mb-3">
-              <input type="password" class="form-control" id="password" placeholder="Masukkan Password" name="password">
-              <div class="input-group-append">
-                <div class="input-group-text">
-                  <span class="fas fa-eye" id="togglePassword" style="cursor:pointer;"></span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12">
-                <button type="submit" class="btn btn-primary btn-block">Masuk</button>
-              </div>
-            </div>
-          </form>
-        </div>
+          </div>
+
+          <button type="submit" class="btn-login">Masuk</button>
+        </form>
       </div>
     </div>
   </div>
-</div>
 
-<!-- jQuery -->
-<script src="<?=base_url()?>assets/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="<?=base_url()?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="<?=base_url()?>assets/js/adminlte.min.js"></script>
+  <!-- jQuery -->
+  <script src="<?=base_url()?>assets/plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="<?=base_url()?>assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <script src="<?=base_url()?>assets/js/adminlte.min.js"></script>
 
-<!-- Script Show/Hide Password -->
-<script>
-  const togglePassword = document.querySelector('#togglePassword');
-  const password = document.querySelector('#password');
-  togglePassword.addEventListener('click', function () {
-    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
-    this.classList.toggle('fa-eye-slash');
-  });
-</script>
+  <script>
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
+    
+    togglePassword.addEventListener('click', function () {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      
+      const icon = this.querySelector('i');
+      icon.classList.toggle('fa-eye');
+      icon.classList.toggle('fa-eye-slash');
+    });
+  </script>
 </body>
 </html>

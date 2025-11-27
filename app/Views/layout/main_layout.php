@@ -13,23 +13,388 @@
     <link rel="stylesheet" href="<?=base_url()?>assets/plugins/sweetalert2/sweetalert2.min.css">
 
     <style>
-        body {
-            font-family: 'Inter', sans-serif !important;
-            font-size: 0.875rem; /* lebih kecil (14px) */
+        /* ===== COLOR VARIABLES ===== */
+        :root {
+            --primary-color: #1e40af;
+            --primary-hover: #1e3a8a;
+            --primary-light: #dbeafe;
+            --secondary-color: #64748b;
+            --bg-main: #f8fafc;
+            --bg-sidebar: #ffffff;
+            --bg-navbar: #ffffff;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
+
+        /* ===== BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+            font-size: 14px !important;
+            line-height: 1.6;
+            color: var(--text-primary) !important;
+            background-color: var(--bg-main) !important;
+            letter-spacing: -0.01em;
+        }
+        
+        /* ===== TYPOGRAPHY ===== */
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Inter', sans-serif !important;
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            color: var(--text-primary) !important;
+            letter-spacing: -0.02em;
         }
-        h1 { font-size: 1.5rem; } /* 24px */
-        h2 { font-size: 1.25rem; } /* 20px */
-        h3 { font-size: 1.125rem; } /* 18px */
-        h4 { font-size: 1rem; }    /* 16px */
-        h5 { font-size: 0.95rem; } /* 15.2px */
-        h6 { font-size: 0.875rem; }/* 14px */
-        .table, .form-control, .btn, p, span, label {
-            font-size: 0.85rem !important; /* samain biar rapi */
+        
+        h1 { font-size: 28px !important; line-height: 1.2; }
+        h2 { font-size: 24px !important; line-height: 1.3; }
+        h3 { font-size: 20px !important; line-height: 1.3; }
+        h4 { font-size: 18px !important; line-height: 1.4; }
+        h5 { font-size: 16px !important; line-height: 1.4; }
+        h6 { font-size: 14px !important; line-height: 1.5; }
+        
+        p, span, label, .table, .form-control, .btn, .dropdown-item, .nav-link {
+            font-size: 14px !important;
+            font-family: 'Inter', sans-serif !important;
+            color: var(--text-primary);
+        }
+
+        /* ===== NAVBAR STYLING ===== */
+        .main-header.navbar {
+            background-color: var(--bg-navbar) !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            box-shadow: var(--shadow-sm) !important;
+            height: 60px;
+            padding: 0 1.5rem;
+        }
+
+        .navbar .nav-link {
+            color: var(--text-primary) !important;
+            padding: 0.5rem 1rem !important;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .navbar .nav-link:hover {
+            background-color: var(--bg-main) !important;
+            color: var(--primary-color) !important;
+        }
+
+        .navbar .nav-link i {
+            color: var(--text-secondary) !important;
+            font-size: 18px;
+        }
+
+        .navbar .form-inline h5 {
+            color: var(--text-primary) !important;
+            font-weight: 600 !important;
+            font-size: 16px !important;
+            margin: 0;
+        }
+
+        /* Dropdown User Menu */
+        .navbar-nav .dropdown-menu {
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+            border-radius: 8px;
+            padding: 0.5rem;
+            min-width: 200px;
+        }
+
+        .dropdown-item {
+            border-radius: 6px;
+            padding: 0.6rem 1rem !important;
+            margin-bottom: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--bg-main) !important;
+            color: var(--primary-color) !important;
+        }
+
+        .dropdown-header {
+            font-weight: 600 !important;
+            color: var(--text-primary) !important;
+            padding: 0.5rem 1rem !important;
+        }
+
+        /* ===== SIDEBAR STYLING ===== */
+        .main-sidebar {
+            background-color: var(--bg-sidebar) !important;
+            border-right: 1px solid var(--border-color) !important;
+            box-shadow: var(--shadow-sm) !important;
+        }
+
+        .brand-link {
+            background-color: var(--bg-sidebar) !important;
+            border-bottom: 1px solid var(--border-color) !important;
+            padding: 1rem 1rem !important;
+            height: 60px;
+            display: flex;
+            align-items: center;
+        }
+
+        .brand-link:hover {
+            background-color: var(--bg-sidebar) !important;
+        }
+
+        .brand-text {
+            color: var(--text-primary) !important;
+            font-weight: 600 !important;
+            font-size: 15px !important;
+        }
+
+        .brand-image {
+            margin-right: 0.5rem;
+            margin-left: 0.25rem;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            padding-top: 1rem;
+        }
+
+        .sidebar .nav-link {
+            color: var(--text-secondary) !important;
+            border-radius: 8px;
+            margin: 2px 12px;
+            padding: 0.7rem 1rem !important;
+            transition: all 0.2s ease;
+            font-weight: 500;
+        }
+
+        .sidebar .nav-link:hover {
+            background-color: var(--primary-light) !important;
+            color: var(--primary-color) !important;
+            transform: translateX(2px);
+        }
+
+        .sidebar .nav-link.active {
+            background-color: var(--primary-color) !important;
+            color: #ffffff !important;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sidebar .nav-link.active p {
+            color: #ffffff !important;
+        }
+
+        .sidebar .nav-link i {
+            color: var(--text-secondary) !important;
+            width: 20px;
+            text-align: center;
+            margin-right: 0.75rem;
+        }
+
+        .sidebar .nav-link:hover i {
+            color: var(--primary-color) !important;
+        }
+
+        .sidebar .nav-link.active i {
+            color: #ffffff !important;
+        }
+
+        .sidebar .nav-link p {
+            margin: 0;
+            display: inline;
+        }
+
+        /* ===== CONTENT AREA ===== */
+        .content-wrapper {
+            background-color: var(--bg-main) !important;
+            min-height: calc(100vh - 60px);
+        }
+
+        .content-header {
+            padding: 1.5rem 1.5rem 1rem 1.5rem;
+            background-color: transparent !important;
+        }
+
+        .content-header .row {
+            align-items: center;
+        }
+
+        .content {
+            padding: 0 1.5rem 1.5rem 1.5rem;
+        }
+
+        /* ===== CARDS & BOXES ===== */
+        .card {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
+            background-color: #ffffff;
+        }
+
+        .card-header {
+            background-color: #ffffff;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 1.25rem;
+            border-radius: 10px 10px 0 0 !important;
+        }
+
+        .card-body {
+            padding: 1.25rem;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            border-radius: 6px !important;
+            font-weight: 500 !important;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color) !important;
+            color: #ffffff !important;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover) !important;
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-danger {
+            background-color: #dc2626 !important;
+        }
+
+        .btn-danger:hover {
+            background-color: #b91c1c !important;
+        }
+
+        .btn-default {
+            background-color: #f1f5f9 !important;
+            color: var(--text-primary) !important;
+        }
+
+        .btn-default:hover {
+            background-color: #e2e8f0 !important;
+        }
+
+        /* ===== FORMS ===== */
+        .form-control {
+            border: 1px solid var(--border-color) !important;
+            border-radius: 6px !important;
+            padding: 0.6rem 0.875rem !important;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color) !important;
+            box-shadow: 0 0 0 3px var(--primary-light) !important;
+        }
+
+        /* ===== TABLES ===== */
+        .table {
+            color: var(--text-primary) !important;
+        }
+
+        .table thead th {
+            border-bottom: 2px solid var(--border-color) !important;
+            font-weight: 600 !important;
+            text-transform: uppercase;
+            font-size: 12px !important;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary) !important;
+            padding: 0.875rem !important;
+        }
+
+        .table tbody td {
+            padding: 0.875rem !important;
+            border-bottom: 1px solid var(--border-color) !important;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: var(--bg-main) !important;
+        }
+
+        /* ===== MODAL ===== */
+        .modal-content {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 18px !important;
+            font-weight: 600 !important;
+            color: var(--text-primary) !important;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 1rem 1.5rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .main-footer {
+            background-color: #ffffff !important;
+            border-top: 1px solid var(--border-color) !important;
+            color: var(--text-secondary) !important;
+            padding: 1rem 1.5rem;
+        }
+
+        .main-footer a {
+            color: var(--primary-color) !important;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .main-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .text-muted {
+            color: var(--text-secondary) !important;
+        }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-main);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-secondary);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .content-header,
+            .content {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
         }
     </style>
 <?php $this->endSection(); ?>
@@ -40,19 +405,11 @@
   <?= $this->renderSection('css'); ?>
   <link rel="stylesheet" href="<?=base_url()?>assets/css/adminlte.min.css">
   <link rel="icon" type="image/png" href="https://smkn6solo.sch.id/wp-content/uploads/2022/07/SMK-N-6-Surakarta.png">
-
-  <style>
-    .content-wrapper {
-     background-image: url('<?=base_url()?>images/menu-background2.jpg');
-     background-size: 500px 500px; 
-    }
-  </style>
-  
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-dark bg-dark">
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -61,12 +418,11 @@
     </ul>
 
     <form class="form-inline ml-3">
-      <h5 class="m-0 text-light">Absensi App</h5>
+      <h5 class="m-0">Absensi App</h5>
     </form>
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
@@ -91,13 +447,12 @@
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-light-lightblue elevation-4">
+  <aside class="main-sidebar elevation-1">
     <!-- Brand Logo -->
-    <a href="<?=base_url()?>" class="brand-link bg-dark">
-    <img src="https://smkn6solo.sch.id/wp-content/uploads/2022/07/SMK-N-6-Surakarta.png" 
-     alt="Logo" class="brand-image" style="height:45px; width:auto;">
-
-      <span class="brand-text font-weight-light">SMK N 6 Surakarta </span>
+    <a href="<?=base_url()?>" class="brand-link">
+      <img src="https://smkn6solo.sch.id/wp-content/uploads/2022/07/SMK-N-6-Surakarta.png" 
+           alt="Logo" class="brand-image" style="height:35px; width:auto;">
+      <span class="brand-text">SMK N 6 Surakarta</span>
     </a>
 
     <!-- Sidebar -->
@@ -109,18 +464,14 @@
           <li class="nav-item">
             <a href="<?=base_url()?>dashboard" class="nav-link <?php if($uri->getSegment(1) == 'dashboard') { echo "active"; } ?>">
               <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Dashboard
-              </p>
+              <p>Dashboard</p>
             </a>
           </li>
           <?php if(session('user_role') != 'admin') { ?>
             <li class="nav-item">
             <a href="<?=base_url()?>log" class="nav-link <?php if($uri->getSegment(1) == 'log') { echo "active"; } ?>">
               <i class="nav-icon fas fa-book"></i>
-              <p>
-                Log
-              </p>
+              <p>Log</p>
             </a>
             </li>
           <?php } ?>
@@ -128,9 +479,7 @@
           <li class="nav-item">
             <a href="<?=base_url()?>category" class="nav-link <?php if($uri->getSegment(1) == 'category') { echo "active"; } ?>">
               <i class="nav-icon fas fa-list"></i>
-              <p>
-                Kelas
-              </p>
+              <p>Kelas</p>
             </a>
           </li>
           <?php } ?>
@@ -138,17 +487,13 @@
             <li class="nav-item">
               <a href="<?=base_url()?>user" class="nav-link <?php if($uri->getSegment(1) == 'user') { echo "active"; } ?>">
                 <i class="nav-icon fas fa-users"></i>
-                <p>
-                  Siswa
-                </p>
+                <p>Siswa</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="<?=base_url()?>admin" class="nav-link <?php if($uri->getSegment(1) == 'admin') { echo "active"; } ?>">
                 <i class="nav-icon fas fa-user-secret"></i>
-                <p>
-                  Admin
-                </p>
+                <p>Admin</p>
               </a>
             </li>
           <?php } ?>
@@ -166,7 +511,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <p class="m-0 h4"><b><?= $subtitle; ?></b></p>
+            <h4 class="m-0"><b><?= $subtitle; ?></b></h4>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <?= $this->renderSection('action-button'); ?>
@@ -185,6 +530,7 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  
   <footer class="main-footer">
     <strong>Copyright &copy; <?=date('Y')?> <a href="https://smkn6solo.sch.id/">SMK Negeri 6 Surakarta</a>.</strong>
     All rights reserved.
