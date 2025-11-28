@@ -11,7 +11,7 @@
         <div class="col-md-6 col-12 mb-3">
             <div class="card h-100">
                 <div class="card-header bg-lightblue">
-                    <h2 class="card-title">User Profile</h2>
+                    <h4 class="card-title  text-white">User Profile</h4>
                 </div>
                 <div class="card-body p-4">
                     <h6 class="text-bold">Nama :</h6>
@@ -26,7 +26,7 @@
         <div class="col-md-6 col-12">
             <div class="card">
                 <div class="card-header bg-secondary">
-                    <h2 class="card-title">Ganti Password</h2>
+                    <h4 class="card-title  text-white">Ganti Password</h2>
                 </div>
                 <form action="<?=base_url()?>profile/changepass" method="POST">
                     <?= csrf_field(); ?>

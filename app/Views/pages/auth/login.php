@@ -32,6 +32,14 @@
       overflow: hidden;
     }
 
+    .footer-left {
+  margin-top: 40px;
+  font-size: 12px;
+  opacity: 0.85;
+  line-height: 1.5;
+}
+
+
     body::before {
       content: '';
       position: fixed;
@@ -221,6 +229,11 @@
           <h1>Sistem Absensi<br>SMK Negeri 6 Surakarta</h1>
           <p>Visioner Inovatif Kompeten Amanah</p>
         </div>
+        <div class="footer-left" style="margin-top:40px; font-size:12px; opacity:0.85; line-height:1.4;">
+  <p>Kolaborasi antara SMK Negeri 6 Surakarta<br>dengan CV. Enuma Technology</p>
+  <p style="margin-top:8px;">Copyright SMK NEGERI 6 SURAKARTA © 2025</p>
+</div>
+
       </div>
 
       <div class="login-right">

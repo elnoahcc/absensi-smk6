@@ -257,22 +257,7 @@
                         </ol>
                     </div>
 
-                    <!-- Online Method -->
-                    <div class="method-card">
-                        <div class="method-header">
-                            <h4 class="method-title">Absensi Online (Website/App)</h4>
-                            <span class="badge badge-online">Online</span>
-                        </div>
-                        <ol class="method-steps">
-                            <li>Login ke sistem absensi menggunakan akun Anda</li>
-                            <li>Klik menu "Absensi" atau tombol "Check-In/Check-Out"</li>
-                            <li>Pastikan lokasi GPS Anda aktif (jika diperlukan)</li>
-                            <li>Ambil foto selfie untuk verifikasi (jika diminta sistem)</li>
-                            <li>Klik tombol "Submit" atau "Kirim Absensi"</li>
-                            <li>Tunggu konfirmasi bahwa absensi berhasil tercatat</li>
-                            <li>Anda akan menerima notifikasi atau email konfirmasi</li>
-                        </ol>
-                    </div>
+                        
                 </div>
             </div>
         </div>

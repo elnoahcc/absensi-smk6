@@ -47,9 +47,7 @@
                             <h4 class="text-bold <?php if($attendancecount['status_today']=='Hadir') { echo "text-success";} else if ($attendancecount['status_today']=='Ijin') {echo "text-info";} else {echo "text-danger";}?>"><?=esc($attendancecount['status_today'])?></h4>
                         <?php } ?>
                     </div>
-                    <div class="col-6">
-                        <button onclick="logModal();" class="btn btn-success btn-lg mt-1"><i class="fas fa-pen"></i> Tulis log hari ini</button>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -72,7 +70,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-lightblue">
-                    <h3 class="card-title text-white ">Kehadiran dan Laporan Siswa</h3>
+                    <h4 class="card-title text-white ">Kehadiran dan Laporan Siswa</h4>
                 </div>
                 <div class="card-body">
                     <div class="card card-body">

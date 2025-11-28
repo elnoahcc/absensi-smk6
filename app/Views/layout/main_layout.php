@@ -4,6 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?= $title ?> | Absensi SMK Negeri 6 Surakarta</title>
+  
+  <?php
+$fullName = session('user_name');
+$parts = explode(' ', trim($fullName));
+
+if (count($parts) > 1) {
+    // Ambil nama depan & nama terakhir
+    $displayName = $parts[0] . ' ' . end($parts);
+} else {
+    // Jika hanya satu kata
+    $displayName = $fullName;
+}
+?>
+
 
   <?php $this->section('css'); ?>
     <!-- Import Font Inter -->
@@ -418,7 +432,7 @@
     </ul>
 
     <form class="form-inline ml-3">
-      <h5 class="m-0">Absensi App</h5>
+      <h5 class="m-0">Sistem Absensi SMK Negeri 6 Surakarta</h5>
     </form>
 
     <!-- Right navbar links -->
@@ -432,7 +446,7 @@
           <i class="far fa-user"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">Hi, <?=session('user_name')?></span>
+          <span class="dropdown-item dropdown-header">Hi, <?= $displayName ?></span>
           <div class="dropdown-divider"></div>
           <a href="<?= base_url('profile') ?>" class="dropdown-item">
             <i class="fas fa-cogs mr-2"></i> User Setting
@@ -531,10 +545,16 @@
   </div>
   <!-- /.content-wrapper -->
   
-  <footer class="main-footer">
-    <strong>Copyright &copy; <?=date('Y')?> <a href="https://smkn6solo.sch.id/">SMK Negeri 6 Surakarta</a>.</strong>
-    All rights reserved.
-  </footer>
+<footer class="main-footer">
+  <strong>
+    Copyright &copy; <?= date('Y') ?>
+    <a href="https://smkn6solo.sch.id/">SMK Negeri 6 Surakarta</a>.
+  </strong>
+  All rights reserved.
+  <br>
+  <small>Kolaborasi antara SMK Negeri 6 Surakarta dengan Enuma Technology</small>
+</footer>
+
 
   <div class="modal fade" id="logoutModal">
     <div class="modal-dialog">
