@@ -10,95 +10,202 @@
     <style>
         body {
             font-family: 'Inter', sans-serif !important;
-            font-size: 0.875rem; /* lebih kecil (14px) */
+            font-size: 0.875rem;
+            background-color: #f5f5f5;
         }
+        
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Inter', sans-serif !important;
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
-        h1 { font-size: 1.5rem; } /* 24px */
-        h2 { font-size: 1.25rem; } /* 20px */
-        h3 { font-size: 1.125rem; } /* 18px */
-        h4 { font-size: 1rem; }    /* 16px */
-        h5 { font-size: 0.95rem; } /* 15.2px */
-        h6 { font-size: 0.875rem; }/* 14px */
+        
+        h1 { font-size: 1.5rem; }
+        h2 { font-size: 1.25rem; }
+        h3 { font-size: 1.125rem; }
+        h4 { font-size: 1rem; }
+        h5 { font-size: 0.95rem; }
+        h6 { font-size: 0.875rem; }
+        
         .table, .form-control, .btn, p, span, label {
-            font-size: 0.85rem !important; /* samain biar rapi */
+            font-size: 0.85rem !important;
+        }
+
+        /* Info Box */
+        .modern-info-box {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #ddd;
+            height: 100%;
+        }
+        
+        .modern-icon-wrapper {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        
+        .modern-icon-wrapper i {
+            font-size: 1.4rem;
+            color: #ffffff;
+        }
+        
+        .modern-info-label {
+            font-size: 0.8rem;
+            color: #666;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modern-info-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #333;
+            line-height: 1.2;
+            margin-bottom: 0.5rem;
+        }
+        
+        .modern-info-subtitle {
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        .modern-info-subtitle b {
+            color: #666;
+        }
+
+        /* Brand Card */
+        .modern-brand-card {
+            background: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            height: 100%;
+        }
+        
+        .modern-brand-card .card-body {
+            padding: 2rem;
+        }
+        
+        .brand-logo-wrapper {
+            width: 90px;
+            height: 90px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .brand-logo-wrapper img {
+            width: 65px;
+            height: auto;
+        }
+        
+        .brand-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+            color: #333;
+            line-height: 1.3;
+        }
+        
+        .brand-subtitle {
+            font-size: 1rem;
+            color: #666;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* Warna Icon */
+        .bg-blue {
+            background: #3498db;
+        }
+        
+        .bg-green {
+            background: #2ecc71;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .modern-info-value {
+                font-size: 1.75rem;
+            }
+            
+            .modern-icon-wrapper {
+                width: 45px;
+                height: 45px;
+            }
+            
+            .modern-icon-wrapper i {
+                font-size: 1.2rem;
+            }
+            
+            .modern-brand-card .card-body {
+                padding: 1.5rem;
+            }
+            
+            .brand-logo-wrapper {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .brand-logo-wrapper img {
+                width: 50px;
+            }
+            
+            .brand-title {
+                font-size: 1.15rem;
+            }
+            
+            .brand-subtitle {
+                font-size: 0.9rem;
+            }
         }
     </style>
 <?php $this->endSection(); ?>
 
 <?php $this->section('content'); ?>
-    <!-- Import Font Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Inter', sans-serif !important;
-        }
-        .info-box-text {
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-        .info-box h1 {
-            font-weight: 700;
-            font-size: 2rem;
-            margin: 0.2rem 0;
-        }
-        .info-box small {
-            color: #6c757d;
-        }
-        .brand-card p.h3 {
-            font-weight: 700;
-            margin-bottom: 0.25rem;
-        }
-        .brand-card p.text-muted {
-            font-size: 0.9rem;
-        }
-        .img-md {
-            width: 64px;
-            height: auto;
-        }
-    </style>
-
     <div class="row">
         <!-- Total User Aktif -->
         <div class="col-lg-3 col-md-6 col-6 mb-3 order-lg-1 order-2">
-            <div class="info-box h-100 shadow-sm">
-                <span class="info-box-icon bg-lightblue elevation-1">
-                    <i class="fas fa-user"></i>
-                </span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Total User Aktif</span>
-                    <h1><?= esc($usercount['count_active']) ?></h1>
-                    <small>dari <b><?= esc($usercount['count_all']) ?></b> user</small>
+            <div class="modern-info-box">
+                <div class="modern-icon-wrapper bg-blue">
+                    <i class="fas fa-users"></i>
                 </div>
+                <div class="modern-info-label">Total User Aktif</div>
+                <div class="modern-info-value"><?= esc($usercount['count_active']) ?></div>
+                <div class="modern-info-subtitle">dari <b><?= esc($usercount['count_all']) ?></b> total user</div>
             </div>
         </div>
 
-    <!-- Total Kelas -->
+        <!-- Total Kelas -->
         <div class="col-lg-3 col-md-6 col-6 mb-3 order-lg-2 order-3">
-            <div class="info-box h-100 shadow-sm">
-                <span class="info-box-icon bg-info elevation-1">
-                    <i class="fas fa-list"></i>
-                </span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Total Kelas</span>
-                    <h1><?= esc($categorycount['total']) ?></h1>
-                    <small>&nbsp;</small>
+            <div class="modern-info-box">
+                <div class="modern-icon-wrapper bg-green">
+                    <i class="fas fa-school"></i>
                 </div>
+                <div class="modern-info-label">Total Kelas</div>
+                <div class="modern-info-value"><?= esc($categorycount['total']) ?></div>
+                <div class="modern-info-subtitle">kelas terdaftar</div>
             </div>
         </div>
 
         <!-- Company Branding -->
         <div class="col-lg-6 col-12 mb-3 order-lg-3 order-1">
-            <div class="card h-100 brand-card shadow-sm">
+            <div class="card modern-brand-card">
                 <div class="card-body d-flex align-items-center">
-                    <img src="<?= base_url() ?>images/logo-smkn6.svg" class="img-md mr-3" alt="Logo SMK N 6">
+                    <div class="brand-logo-wrapper mr-4">
+                        <img src="<?= base_url() ?>images/logo-smkn6.svg" alt="Logo SMK N 6">
+                    </div>
                     <div>
-                        <p class="h3">SMK Negeri 6 Surakarta</p>
-                        <p class="m-0 text-muted">Sistem Aplikasi Manajemen Absensi</p>
+                        <p class="brand-title">SMK Negeri 6 Surakarta</p>
+                        <p class="brand-subtitle">Sistem Aplikasi Manajemen Absensi</p>
                     </div>
                 </div>
             </div>

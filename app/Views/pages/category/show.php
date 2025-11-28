@@ -1,5 +1,7 @@
 <?php $this->extend('layout/main_layout'); ?>
 
+
+
 <?php $this->section('css'); ?>
     <link rel="stylesheet" href="<?=base_url()?>assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?=base_url()?>assets/plugins/sweetalert2/sweetalert2.min.css">
@@ -68,8 +70,8 @@
         </div>
         <div class="col-lg-6 col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Daftar Jadwal</h2>
+                <div class="card-header bg-primary">
+                    <h4 class="card-title ">Daftar Jadwal</h4>
                     <button onclick="showAdd()" class="btn btn-sm btn-primary float-right"><i class="fas fa-plus"></i> Tambah</button>
                 </div>
                 <div class="card-body">
@@ -103,8 +105,9 @@
         </div>
         <div class="col-lg-6 col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <h2 class="card-title">Daftar Siswa</h2>
+                <div class="card-header bg-primary">
+                    <h4 class="card-title ">Daftar Siswa</h4>
+                    
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

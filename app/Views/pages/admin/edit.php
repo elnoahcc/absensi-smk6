@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-lightblue">
-                    <h2 class="card-title">Ubah Data Admin</h2>
+                    <h4 class="card-title">Ubah Data Admin</h4>
                 </div>
                 <form method="post" action="<?=base_url()?>admin/edit/<?=$admin['id']?>">
                     <?= csrf_field(); ?>

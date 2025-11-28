@@ -27,6 +27,12 @@ if (count($parts) > 1) {
     <link rel="stylesheet" href="<?=base_url()?>assets/plugins/sweetalert2/sweetalert2.min.css">
 
     <style>
+    .card-title {
+        color: #fff !important;
+        font-size: 1.3rem;  /* ukuran standar h4 */
+        font-weight: 600;
+    }
+
         /* ===== COLOR VARIABLES ===== */
         :root {
             --primary-color: #1e40af;
