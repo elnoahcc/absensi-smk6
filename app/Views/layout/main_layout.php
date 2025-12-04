@@ -443,25 +443,28 @@ if (count($parts) > 1) {
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Notifications Dropdown Menu -->
+      <!-- Profile Dropdown Menu Responsive -->
       <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <span class="mr-2">
+        <a class="nav-link d-flex align-items-center" data-toggle="dropdown" href="#" style="gap: 8px;">
+          <span class="profile-name d-none d-sm-inline" style="font-weight:500;max-width:120px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
             <?php echo session('username'); ?>
           </span>
-          <i class="far fa-user"></i>
+          <span class="profile-icon rounded-circle bg-light d-flex justify-content-center align-items-center" style="width:32px;height:32px;">
+            <i class="far fa-user" style="font-size:18px;color:#1e293b;"></i>
+          </span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">Hi, <?= $displayName ?></span>
+          <span class="dropdown-item dropdown-header text-truncate" style="max-width:180px;">Hi, <?= $displayName ?></span>
           <div class="dropdown-divider"></div>
           <a href="<?= base_url('profile') ?>" class="dropdown-item">
             <i class="fas fa-cogs mr-2"></i> User Setting
           </a>
-          <a href="<?=base_url('logout')?>" class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
+          <a href="<?=base_url('logout') ?>" class="dropdown-item" data-toggle="modal" data-target="#logoutModal">
             <i class="fas fa-power-off mr-2"></i> Logout
           </a>
         </div>
       </li>
+       
     </ul>
   </nav>
   <!-- /.navbar -->
