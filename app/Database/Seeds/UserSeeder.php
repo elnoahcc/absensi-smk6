@@ -11,7 +11,7 @@ class UserSeeder extends Seeder
         $data = [
             [
                 'id'          => '1',
-                'name'        => 'Admin Enuma', //bisa di ganti sesuai keinginan
+                'name'        => 'Admin SMK Negeri 6 Surakarta', //bisa di ganti sesuai keinginan
                 'username'    => 'admin',
                 'password'    => password_hash('12345678', PASSWORD_DEFAULT),
                 'category_id' => '1',
