@@ -40,9 +40,13 @@ class Auth extends BaseController
                 return redirect()->back()->with('error', 'anda dinonaktifkan');
             }
 
+            // Check if user is overseer (guru) by checking subcategory_overseer
+            $db = \Config\Database::connect();
+            $isOverseer = $db->table('subcategory_overseer')->where('user_id', $user['id'])->countAllResults() > 0;
+
             if ($user['category_id'] == '1') {
                 $role = 'admin';
-            } else if ($user['overseer'] == '1') {
+            } else if ($isOverseer) {
                 $role = 'pengawas';
             } else {
                 $role = 'user';

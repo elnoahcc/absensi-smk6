@@ -29,6 +29,18 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-3 col-md-6 col-12 mb-2 order-lg-4 order-4">
+            <div class="info-box h-100">
+                <span class="info-box-icon bg-success elevation-1"
+                ><i class="fas fa-users"></i
+                ></span>
+
+                <div class="info-box-content">
+                <span class="info-box-text">Kelola Siswa</span>
+                <a href="<?=base_url()?>user" class="btn btn-success btn-sm">Lihat Siswa</a>
+                </div>
+            </div>
+        </div>
         <div class="col-lg-6 col-12 mb-2 order-lg-3 order-1">
             <div class="card h-100">
                 <div class="card-body d-flex align-items-center justify-content-start px-5">

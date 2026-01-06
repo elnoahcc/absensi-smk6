@@ -54,7 +54,7 @@ $routes->group('attendance', ['filter' => 'auth'], function($routes) {
 });
 
 //user
-$routes->group('user', ['filter' => 'admin'], function($routes) {
+$routes->group('user', ['filter' => 'admin-pengawas'], function($routes) {
     $routes->get('/', 'User::index');
     $routes->get('add', 'User::add');
     $routes->post('add', 'User::addPost');
@@ -71,6 +71,16 @@ $routes->group('admin', ['filter' => 'admin'], function($routes) {
     $routes->get('edit/(:any)', 'Admin::edit/$1');
     $routes->post('edit/(:any)', 'Admin::editpost/$1');
     $routes->post('delete', 'Admin::delete');
+});
+
+//guru
+$routes->group('guru', ['filter' => 'admin'], function($routes) {
+    $routes->get('/', 'Guru::index');
+    $routes->get('add', 'Guru::add');
+    $routes->post('addpost', 'Guru::addpost');
+    $routes->get('edit/(:any)', 'Guru::edit/$1');
+    $routes->post('editpost/(:any)', 'Guru::editpost/$1');
+    $routes->get('delete/(:any)', 'Guru::delete/$1');
 });
 
 //API

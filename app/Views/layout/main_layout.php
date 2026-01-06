@@ -506,21 +506,28 @@ if (count($parts) > 1) {
             </a>
           </li>
           <?php } ?>
-          <?php if(session('user_role') == 'admin') {?>
+          <?php if(session('user_role') == 'admin' || session('user_role') == 'pengawas') {?>
             <li class="nav-item">
               <a href="<?=base_url()?>user" class="nav-link <?php if($uri->getSegment(1) == 'user') { echo "active"; } ?>">
                 <i class="nav-icon fas fa-users"></i>
                 <p>Siswa</p>
               </a>
             </li>
+          <?php } ?>
+          <?php if(session('user_role') == 'admin') {?>
             <li class="nav-item">
               <a href="<?=base_url()?>admin" class="nav-link <?php if($uri->getSegment(1) == 'admin') { echo "active"; } ?>">
                 <i class="nav-icon fas fa-user-secret"></i>
                 <p>Admin</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="<?=base_url()?>guru" class="nav-link <?php if($uri->getSegment(1) == 'guru') { echo "active"; } ?>">
+                <i class="nav-icon fas fa-chalkboard-teacher"></i>
+                <p>Guru</p>
+              </a>
+            </li>
           <?php } ?>
-        </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>

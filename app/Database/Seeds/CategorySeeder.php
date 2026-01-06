@@ -10,9 +10,9 @@ class CategorySeeder extends Seeder
     {
         $data = [
             [
-                'id'          => '1',
-                'name'        => 'Admin',
-                'description' => 'Admin memiliki akses ke semua fitur dalam sistem.',
+                'id'          => '2',
+                'name'        => 'Guru',
+                'description' => 'Guru mengelola kelas dan absensi siswa.',
             ],
         ];
 

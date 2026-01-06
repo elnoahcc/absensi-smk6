@@ -7,18 +7,21 @@ use CodeIgniter\HTTP\ResponseInterface;
 use App\Models\UserModel;
 use App\Models\AttendanceModel;
 use App\Models\CategoryModel;
+use App\Models\SubcategoryOverseerModel;
 
 class User extends BaseController
 {
     protected $userModel;
     protected $categoryModel;
     protected $attendanceModel;
+    protected $subcategoryOverseerModel;
 
     public function __construct()
     {
         $this->userModel = new UserModel();
         $this->attendanceModel = new AttendanceModel();
         $this->categoryModel = new CategoryModel();
+        $this->subcategoryOverseerModel = new SubcategoryOverseerModel();
     }
 
     public function index()
@@ -26,10 +29,29 @@ class User extends BaseController
     $data['title'] = "Daftar Siswa";
     $data['subtitle'] = "Siswa";
 
-        $data['user'] = $this->userModel
+        $query = $this->userModel
             ->join('categories', 'categories.id = users.category_id', 'left')
+            ->join('subcategory_overseer', 'subcategory_overseer.user_id = users.id', 'left')
             ->select('users.*, categories.name as category_name')
             ->where('categories.id !=', '1')
+            ->where('subcategory_overseer.user_id IS NULL');
+
+        // If user is pengawas, only show students from their managed categories
+        if (session('user_role') == 'pengawas') {
+            $managedCategories = $this->subcategoryOverseerModel
+                ->select('category_id')
+                ->where('user_id', session('user_id'))
+                ->findAll();
+            $categoryIds = array_column($managedCategories, 'category_id');
+            if (!empty($categoryIds)) {
+                $query->whereIn('users.category_id', $categoryIds);
+            } else {
+                // If no categories managed, show no students
+                $query->where('1=0');
+            }
+        }
+
+        $data['user'] = $query
             ->orderBy('ISNULL(users.id_fingerprint)', 'ASC')
             ->orderBy('users.id_fingerprint','ASC')
             ->findAll();
@@ -48,6 +70,11 @@ class User extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         } else {
             if($user['category_id'] == "1") {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+            // Check if user is a guru (overseer)
+            $isGuru = $this->subcategoryOverseerModel->where('user_id', $id)->first();
+            if ($isGuru) {
                 throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
             }
         }
@@ -78,10 +105,24 @@ class User extends BaseController
     $data['title'] = "Tambah Siswa";
     $data['subtitle'] = "Siswa";
 
-        $data['category'] = $this->categoryModel
-            ->where('id !=','1')
-            ->orderBy('name','ASC')
-            ->findAll();
+        $query = $this->categoryModel->where('id !=','1');
+
+        // If user is pengawas, only show their managed categories
+        if (session('user_role') == 'pengawas') {
+            $managedCategories = $this->subcategoryOverseerModel
+                ->select('category_id')
+                ->where('user_id', session('user_id'))
+                ->findAll();
+            $categoryIds = array_column($managedCategories, 'category_id');
+            if (!empty($categoryIds)) {
+                $query->whereIn('id', $categoryIds);
+            } else {
+                // If no categories, show none
+                $query->where('1=0');
+            }
+        }
+
+        $data['category'] = $query->orderBy('name','ASC')->findAll();
         
         return view('pages/user/add',$data);
     }
@@ -91,10 +132,23 @@ class User extends BaseController
     $data['title'] = "Edit Siswa";
     $data['subtitle'] = "Siswa";
 
-        $data['category'] = $this->categoryModel
-            ->where('id !=','1')
-            ->orderBy('name','ASC')
-            ->findAll();
+        $query = $this->categoryModel->where('id !=','1');
+
+        // If user is pengawas, only show their managed categories
+        if (session('user_role') == 'pengawas') {
+            $managedCategories = $this->subcategoryOverseerModel
+                ->select('category_id')
+                ->where('user_id', session('user_id'))
+                ->findAll();
+            $categoryIds = array_column($managedCategories, 'category_id');
+            if (!empty($categoryIds)) {
+                $query->whereIn('id', $categoryIds);
+            } else {
+                $query->where('1=0');
+            }
+        }
+
+        $data['category'] = $query->orderBy('name','ASC')->findAll();
         
         $user = $this->userModel
             ->find($id);
@@ -103,6 +157,11 @@ class User extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         } else {
             if($user['category_id'] == "1") {
+                throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+            }
+            // Check if user is a guru (overseer)
+            $isGuru = $this->subcategoryOverseerModel->where('user_id', $id)->first();
+            if ($isGuru) {
                 throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
             }
         }
@@ -139,6 +198,18 @@ class User extends BaseController
             'active' => $this->request->getPost('status'),
             'can_login' => $can_login,
         ];
+
+        // Check if pengawas can only add to their managed categories
+        if (session('user_role') == 'pengawas') {
+            $managedCategories = $this->subcategoryOverseerModel
+                ->select('category_id')
+                ->where('user_id', session('user_id'))
+                ->findAll();
+            $categoryIds = array_column($managedCategories, 'category_id');
+            if (!in_array($this->request->getPost('category'), $categoryIds)) {
+                return redirect()->back()->with('error', 'Anda tidak diizinkan menambah siswa ke kelas ini!')->withInput();
+            }
+        }
 
         if($this->request->getPost('id_fingerprint')) {
             $data['id_fingerprint'] = $this->request->getPost('id_fingerprint');
@@ -201,6 +272,18 @@ class User extends BaseController
             'category_id' => $this->request->getPost('category'),
             'active' => $this->request->getPost('status'),
         ];
+
+        // Check if pengawas can only edit to their managed categories
+        if (session('user_role') == 'pengawas') {
+            $managedCategories = $this->subcategoryOverseerModel
+                ->select('category_id')
+                ->where('user_id', session('user_id'))
+                ->findAll();
+            $categoryIds = array_column($managedCategories, 'category_id');
+            if (!in_array($this->request->getPost('category'), $categoryIds)) {
+                return redirect()->back()->with('error', 'Anda tidak diizinkan mengubah siswa ke kelas ini!')->withInput();
+            }
+        }
         
 
         if ($this->request->getPost('can_login')) {
@@ -231,6 +314,21 @@ class User extends BaseController
     public function delete()
     {
         $id = $this->request->getPost('id');
+        
+        // Check if pengawas can only delete students from their managed categories
+        if (session('user_role') == 'pengawas') {
+            $user = $this->userModel->find($id);
+            if ($user) {
+                $managedCategories = $this->subcategoryOverseerModel
+                    ->select('category_id')
+                    ->where('user_id', session('user_id'))
+                    ->findAll();
+                $categoryIds = array_column($managedCategories, 'category_id');
+                if (!in_array($user['category_id'], $categoryIds)) {
+                    return redirect()->back()->with('error', 'Anda tidak diizinkan menghapus siswa dari kelas ini!');
+                }
+            }
+        }
         
         if($this->userModel->where('id',$id)->delete()) {
             $path = "images/data/".$id;
