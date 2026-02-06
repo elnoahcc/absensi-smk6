@@ -54,6 +54,71 @@ class UserModel extends Model
         return $this->find($id);
     }
 
+    public function getAllStudents()
+    {
+        return $this->select('users.*, categories.name as category_name')
+            ->join('categories', 'categories.id = users.category_id', 'left')
+            ->whereNotIn('users.id', function($builder) {
+                return $builder->select('user_id')
+                    ->from('subcategory_overseer')
+                    ->where('subcategory_overseer.user_id IS NOT NULL', null, false);
+            })
+            ->where('users.category_id !=', '1')
+            ->orderBy('ISNULL(users.id_fingerprint)', 'ASC')
+            ->orderBy('users.id_fingerprint', 'ASC')
+            ->findAll();
+    }
+
+    public function getStudentsByCategory($categoryIds = [])
+    {
+        $query = $this->select('users.*, categories.name as category_name')
+            ->join('categories', 'categories.id = users.category_id', 'left')
+            ->whereNotIn('users.id', function($builder) {
+                return $builder->select('user_id')
+                    ->from('subcategory_overseer')
+                    ->where('subcategory_overseer.user_id IS NOT NULL', null, false);
+            })
+            ->where('users.category_id !=', '1');
+
+        if (!empty($categoryIds)) {
+            $query->whereIn('users.category_id', $categoryIds);
+        }
+
+        return $query
+            ->orderBy('ISNULL(users.id_fingerprint)', 'ASC')
+            ->orderBy('users.id_fingerprint', 'ASC')
+            ->findAll();
+    }
+
+    public function getStudentsByCategoryId($categoryId)
+    {
+        return $this->select('users.*')
+            ->whereNotIn('users.id', function($builder) {
+                return $builder->select('user_id')
+                    ->from('subcategory_overseer')
+                    ->where('subcategory_overseer.user_id IS NOT NULL', null, false);
+            })
+            ->where('users.category_id', $categoryId)
+            ->where('users.category_id !=', '1')
+            ->orderBy('users.name', 'ASC')
+            ->findAll();
+    }
+
+    public function getStudentsByCategoryIdWithAttendance($categoryId)
+    {
+        return $this->select("users.*, COALESCE(attendances.status, 'Tidak Hadir') as status")
+            ->whereNotIn('users.id', function($builder) {
+                return $builder->select('user_id')
+                    ->from('subcategory_overseer')
+                    ->where('subcategory_overseer.user_id IS NOT NULL', null, false);
+            })
+            ->where('users.category_id', $categoryId)
+            ->where('users.category_id !=', '1')
+            ->join('attendances', 'users.id = attendances.user_id AND DATE(attendances.created_at) = CURDATE()', 'Left')
+            ->orderBy('users.name', 'ASC')
+            ->findAll();
+    }
+
     //Admin Validation Function Start
     public function admin_insert_valid()
     {

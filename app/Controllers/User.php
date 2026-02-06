@@ -29,13 +29,6 @@ class User extends BaseController
     $data['title'] = "Daftar Siswa";
     $data['subtitle'] = "Siswa";
 
-        $query = $this->userModel
-            ->join('categories', 'categories.id = users.category_id', 'left')
-            ->join('subcategory_overseer', 'subcategory_overseer.user_id = users.id', 'left')
-            ->select('users.*, categories.name as category_name')
-            ->where('categories.id !=', '1')
-            ->where('subcategory_overseer.user_id IS NULL');
-
         // If user is pengawas, only show students from their managed categories
         if (session('user_role') == 'pengawas') {
             $managedCategories = $this->subcategoryOverseerModel
@@ -43,18 +36,11 @@ class User extends BaseController
                 ->where('user_id', session('user_id'))
                 ->findAll();
             $categoryIds = array_column($managedCategories, 'category_id');
-            if (!empty($categoryIds)) {
-                $query->whereIn('users.category_id', $categoryIds);
-            } else {
-                // If no categories managed, show no students
-                $query->where('1=0');
-            }
+            $data['user'] = $this->userModel->getStudentsByCategory($categoryIds);
+        } else {
+            // Admin and other roles see all students
+            $data['user'] = $this->userModel->getAllStudents();
         }
-
-        $data['user'] = $query
-            ->orderBy('ISNULL(users.id_fingerprint)', 'ASC')
-            ->orderBy('users.id_fingerprint','ASC')
-            ->findAll();
         
         return view('pages/user/list',$data);
     }

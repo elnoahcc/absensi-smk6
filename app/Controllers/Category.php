@@ -28,22 +28,9 @@ class Category extends BaseController
         $id = session('user_id');
 
         if(session('user_role') == 'admin') {
-            $data['category'] = $this->categoryModel
-                ->select('categories.*, count(u.id) as total')
-                ->join('users u','categories.id = u.category_id','left')
-                ->where('categories.id !=', '1')
-                ->orderBy('categories.name', 'asc')
-                ->groupBy('categories.id')
-                ->findAll();
+            $data['category'] = $this->categoryModel->getCategoriesWithStudentCount();
         } else {
-            $data['category'] = $this->subcategoryOverseerModel
-                ->select('categories.*,count(u.id) as total')
-                ->join('categories','subcategory_overseer.category_id = categories.id')
-                ->join('users u','categories.id = u.category_id','left')
-                ->orderBy('categories.name', 'asc')
-                ->groupBy('categories.id')
-                ->where('subcategory_overseer.user_id',$id)
-                ->findAll();
+            $data['category'] = $this->categoryModel->getCategoriesWithStudentCountByUser($id);
         }
 
         return view('pages/category/list',$data);
@@ -70,12 +57,7 @@ class Category extends BaseController
             }
         }
 
-        $user = $this->userModel
-            ->select("users.*, COALESCE(attendances.status, 'Tidak Hadir') as status")
-            ->where('category_id',$id)
-            ->join('attendances', 'users.id = attendances.user_id AND DATE(attendances.created_at) = CURDATE()', 'Left')
-            ->orderBy('name','asc')
-            ->findAll();
+        $user = $this->userModel->getStudentsByCategoryIdWithAttendance($id);
 
         $jadwal = $this->scheduleModel
             ->where('category_id',$id)

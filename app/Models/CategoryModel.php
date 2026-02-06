@@ -47,4 +47,35 @@ class CategoryModel extends Model
     {
         return $this->findAll();
     }
+
+    public function getCategoriesWithStudentCount()
+    {
+        return $this->select('categories.*, COUNT(u.id) as total')
+            ->join('users u', 'categories.id = u.category_id', 'left')
+            ->whereNotIn('u.id', function($builder) {
+                return $builder->select('user_id')
+                    ->from('subcategory_overseer')
+                    ->where('subcategory_overseer.user_id IS NOT NULL', null, false);
+            }, false)
+            ->where('categories.id !=', '1')
+            ->orderBy('categories.name', 'asc')
+            ->groupBy('categories.id')
+            ->findAll();
+    }
+
+    public function getCategoriesWithStudentCountByUser($userId)
+    {
+        return $this->select('categories.*, COUNT(u.id) as total')
+            ->join('subcategory_overseer', 'categories.id = subcategory_overseer.category_id')
+            ->join('users u', 'categories.id = u.category_id', 'left')
+            ->whereNotIn('u.id', function($builder) {
+                return $builder->select('user_id')
+                    ->from('subcategory_overseer')
+                    ->where('subcategory_overseer.user_id IS NOT NULL', null, false);
+            }, false)
+            ->where('subcategory_overseer.user_id', $userId)
+            ->orderBy('categories.name', 'asc')
+            ->groupBy('categories.id')
+            ->findAll();
+    }
 }
